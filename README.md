@@ -9,11 +9,11 @@ If you have any questions, comments, or issues related to Animator, Please conta
 
 ### Animator
 
-**Animator-android** framework provided by Streamoid Technologies, acts as a bridge between offline advertisements and purchasing those products online
+**Animator-android** framework provided by Streamoid Technologies, acts as a bridge between offline advertisements and purchasing those products online.
 
-**TestAnimator** is an example application which uses Animator-android framework
+**TestAnimator** is an example application which uses Animator-android framework.
 
-Imagine a scenario where you see some product advertisement in a newspaper ad or in a product catalogue, feel like knowing more about that product or buying it online. Animator iOS SDK solves the exact same problem.
+Imagine a scenario where you see some product advertisement in a newspaper ad or in a product catalogue, feel like knowing more about that product or buying it online. Animator-android SDK solves the exact same problem.
 
 If the offline advertisement is Animator enabled, user can click on the product image using the camera screen provided by Animator framework, unlock many features like : 
 - Watching a video related to that product
@@ -110,6 +110,9 @@ Following Permissions are mandatory:
 ```sh
 Manifest.permission.CAMERA // To use Device Camera
 Manifest.permission.INTERNET // To connect Webservice and fetch matches
+Manifest.permission.ACCESS_NETWORK_STATE // To check Network Availibility
+Manifest.permission.READ_EXTERNAL_STORAGE or Manifest.permission.WRITE_EXTERNAL_STORAGE //Used by Camera
+
 ```
 ### Contact
 

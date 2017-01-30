@@ -3,8 +3,6 @@ package com.streamoid.testanimator;
 import android.app.Application;
 
 import com.streamoid.animatorsdk.external.AnimatorClient;
-import com.streamoid.animatorsdk.external.AnimatorParams;
-import com.streamoid.animatorsdk.external.Params;
 import com.streamoid.animatorsdk.external.RequestCallback;
 import com.streamoid.animatorsdk.external.RequestItem;
 import com.streamoid.animatorsdk.misc.general.Logger;
@@ -20,15 +18,6 @@ public class AppConfig extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-/**
- * Setup parameters for the Animator SDK
- * Change icon colors depending on your theme color.
- * Dark icons use black color whereas Light icons use white color.
- * The default color of icons is white.
- */
-        Params params = new AnimatorParams.Builder()
-                .useDarkIcons(false)
-                .build();
 /**
  * This is the initialization entry point to the SDK
  * @param context the current context
@@ -50,7 +39,7 @@ public class AppConfig extends Application {
                         Logger.errorLogs("App Config", "Error: " + requestItem.getResponse().string);
 
                     }
-                }, params);
+                });
 
     }
 }

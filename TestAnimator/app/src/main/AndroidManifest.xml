@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".AppConfig"
-        tools:replace="theme">
+        tools:replace="icon, label, theme"
+        >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

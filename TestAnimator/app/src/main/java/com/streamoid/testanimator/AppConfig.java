@@ -12,20 +12,23 @@ import com.streamoid.animatorsdk.misc.general.Logger;
  */
 
 public class AppConfig extends Application {
+    /**
+     * set the values of CLIENT_NAME, CLIENT_TOKEN that you have received from us.
+     */
     private String CLIENT_TOKEN = "";
     private String CLIENT_NAME = "";
 
     @Override
     public void onCreate() {
         super.onCreate();
-/**
- * This is the initialization entry point to the SDK
- * @param context the current context
- * @param clientName your unique name
- * @param clientToken unique token provided to access data
- * @param callback  access any root causes of error / error / success cases using this callback
- * @param parameters parameters to customize the app. If null, the default settings will be used.
- */
+    /**
+     * This is the initialization entry point to the SDK
+     * @param context the current context
+     * @param clientName your unique name
+     * @param clientToken unique token provided to access data
+     * @param callback  access any root causes of error / error / success cases using this callback
+     * @param parameters parameters to customize the app. If null, the default settings will be used.
+     */
         AnimatorClient.initialize(getBaseContext(),
                 CLIENT_NAME, CLIENT_TOKEN, new RequestCallback() {
                     @Override
@@ -40,6 +43,5 @@ public class AppConfig extends Application {
 
                     }
                 });
-
     }
 }

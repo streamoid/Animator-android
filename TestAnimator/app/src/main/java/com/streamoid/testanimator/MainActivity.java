@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupView();
         setupStore();
-
     }
 
 
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Test Animator");
         setSupportActionBar(toolbar);
-
         spanish = (Button)findViewById(R.id.spanish);
         russian = (Button)findViewById(R.id.russian);
         defaultLang = (Button)findViewById(R.id.defaultLang);
@@ -65,8 +63,23 @@ public class MainActivity extends AppCompatActivity {
         spanish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                languageText.setText(SPANISH_LANG);
+                /**
+                 * When user switches between the languages provided by your app,
+                 * update the Animator client to use the same.
+                 * Currently 2 languages are supported other than English - Spanish, Russian.
+                 * If the updated language is supported by the SDK, the same will be available.
+                 * In case the selected language is not available in the SDK, English will be used.
+                 */
                 AnimatorClient.setAnimatorLocale(MainActivity.this, ConstantValues.SPANISH_CODE);
+
+                /**
+                 * Displaying the language selected in the test app.
+                 */
+                languageText.setText(SPANISH_LANG);
+                /**
+                 * Saving the user selected language in Shared preferences,
+                 * to persist language when app is reopened
+                 */
                 addLanguageToStore(SPANISH_LANG);
             }
         });
@@ -84,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 languageText.setText("Default");
-                AnimatorClient.setAnimatorLocale(MainActivity.this, DEFAULT_LANG);
+                AnimatorClient.setAnimatorLocale(MainActivity.this, ConstantValues.DEFAULT_CODE);
                 addLanguageToStore(DEFAULT_LANG);
             }
         });
@@ -121,8 +134,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupStore() {
         if(null == sSharedPreferences) {
-            sSharedPreferences = MainActivity.this.getSharedPreferences(STORE_PREFERENCES, Context.MODE_PRIVATE);
-            sSharedPreferences.getString(LANGUAGE_PREFERENCES, "");
+            sSharedPreferences = MainActivity.this.
+                    getSharedPreferences(STORE_PREFERENCES, Context.MODE_PRIVATE);
+            /**
+             * Initialising the shared preferences to the default language.
+             */
+            sSharedPreferences.edit().putString(LANGUAGE_PREFERENCES, "").apply();
         }
         checkIfLanguageIsSet();
     }
@@ -140,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     languageText.setText(RUSSIAN_LANG);
                     break;
                 default:
-                    AnimatorClient.setAnimatorLocale(this, DEFAULT_LANG);
+                    AnimatorClient.setAnimatorLocale(this, ConstantValues.DEFAULT_CODE);
                     languageText.setText(Locale.getDefault().getDisplayLanguage());
                     break;
             }

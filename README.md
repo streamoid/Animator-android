@@ -44,7 +44,7 @@ to use the JCenter Repository
 ```groovy
 dependencies {
     ...
-        compile 'com.streamoid:animatorsdk:0.0.2'
+        compile 'com.streamoid:animatorsdk:0.0.6'
     ...
 }
 ```
@@ -62,7 +62,7 @@ Add following to manifest application
 
 ### Verifying Animator Configuration
 
-Once you have finished adding Animator framework to your project, you can test your configuration by importing the dependencies and connecting a client to the Animator cloud. To do so, add following code to your Application class. (note that you must substitute the client name and client token placeholder text with your actual values, in order to get these values please contact us at streamoid.support@streamoid.com):
+Once you have finished adding Animator framework to your project, you can test your configuration by importing the dependencies and connecting a client to the Animator cloud. To do so, add following code to your Application class. (note that you must substitute the CLIENT_NAME and CLIENT_TOKEN placeholder text with your actual values, in order to get these values please contact us at streamoid.support@streamoid.com):
 
 ### Simple Intialization
 ```sh
@@ -102,6 +102,15 @@ Below method can be called only after initialization of `AnimatorClient`
                 });
 ```
 
+### To use your preferred language
+
+Animator Framework supports multiple languages. As of now, English, Spanish and Russian are supported. More languages will be supported in the future... It is optional to set the language. If no language is set, we use the default language used by app. After initializing an animator client in your application, you can specify the language you need to see the framework by using the following method in framework:
+
+```
+ AnimatorClient.setAnimatorLocale(this, ConstantValues.SPANISH_CODE);
+```
+
+ConstantValues will list out the languages supported by the SDK. Your app can use one of the language codes specified in ConstantValues to indicate the language that has to be used by the SDK.
 
 ### Note
 
@@ -111,8 +120,6 @@ Following Permissions are mandatory:
 Manifest.permission.CAMERA // To use Device Camera
 Manifest.permission.INTERNET // To connect Webservice and fetch matches
 Manifest.permission.ACCESS_NETWORK_STATE // To check Network Availibility
-Manifest.permission.READ_EXTERNAL_STORAGE or Manifest.permission.WRITE_EXTERNAL_STORAGE //Used by Camera
-
 ```
 ### Contact
 

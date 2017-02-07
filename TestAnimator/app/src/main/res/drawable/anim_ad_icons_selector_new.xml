@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item app:adOptionInfo="true"
+        android:drawable="@drawable/ic_info_black_24dp" />
+    <item app:adOptionPlay="true"
+        android:drawable="@drawable/ic_ondemand_video_black_24dp" />
+    <item app:adOptionAudio="true"
+        android:drawable="@drawable/ic_audiotrack_black_24dp" />
+    <item app:adOptionCall="true"
+        android:drawable="@drawable/ic_call_black_24dp" />
+    <item app:adOptionGallery="true"
+        android:drawable="@drawable/ic_photo_library_black_24dp" />
+    <item app:adOptionBuy="true"
+        android:drawable="@drawable/ic_shopping_basket_black_24dp" />
+
+</selector>

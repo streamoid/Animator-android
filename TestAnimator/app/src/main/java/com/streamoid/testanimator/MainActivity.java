@@ -11,12 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.streamoid.animatorsdk.external.AnimatorClient;
-import com.streamoid.animatorsdk.external.ConstantValues;
+import com.streamoid.animatorsdk.external.AnimatorLanguageCodes;
 import com.streamoid.animatorsdk.external.RequestCallback;
 import com.streamoid.animatorsdk.external.RequestItem;
 import com.streamoid.animatorsdk.misc.general.Logger;
-
-import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LANGUAGE_PREFERENCES = "app_language";
     private static final String SPANISH_LANG = "Spanish";
+    private static final String ENGLISH_LANG = "English";
     private static final String RUSSIAN_LANG = "Russian";
     private static String DEFAULT_LANG = "";
     private static final String STORE_PREFERENCES = "test_animator_sdk";
@@ -33,53 +32,38 @@ public class MainActivity extends AppCompatActivity {
 
     private Button spanish;
     private Button russian;
-    private Button  defaultLang;
+    private Button english;
+    private Button phoneLocale;
     private TextView languageText;
+    private Toolbar mToolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DEFAULT_LANG = Locale.getDefault().getLanguage();
         setContentView(R.layout.activity_main);
         setupView();
         setupStore();
     }
 
-
-
     private void setupView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Test Animator");
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        english = (Button)findViewById(R.id.english);
+        phoneLocale = (Button)findViewById(R.id.phone_locale);
         spanish = (Button)findViewById(R.id.spanish);
         russian = (Button)findViewById(R.id.russian);
-        defaultLang = (Button)findViewById(R.id.defaultLang);
         languageText = (TextView) findViewById(R.id.lang);
+        mToolbar.setTitle("Test Animator");
         setupListeners();
+
     }
 
     private void setupListeners() {
+
         spanish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**
-                 * When user switches between the languages provided by your app,
-                 * update the Animator client to use the same.
-                 * Currently 2 languages are supported other than English - Spanish, Russian.
-                 * If the updated language is supported by the SDK, the same will be available.
-                 * In case the selected language is not available in the SDK, English will be used.
-                 */
-                AnimatorClient.setAnimatorLocale(MainActivity.this, ConstantValues.SPANISH_CODE);
-
-                /**
-                 * Displaying the language selected in the test app.
-                 */
-                languageText.setText(SPANISH_LANG);
-                /**
-                 * Saving the user selected language in Shared preferences,
-                 * to persist language when app is reopened
-                 */
+                setupLanguage(SPANISH_LANG, AnimatorLanguageCodes.SPANISH_CODE);
                 addLanguageToStore(SPANISH_LANG);
             }
         });
@@ -87,30 +71,29 @@ public class MainActivity extends AppCompatActivity {
         russian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                languageText.setText(RUSSIAN_LANG);
-                AnimatorClient.setAnimatorLocale(MainActivity.this, ConstantValues.RUSSIAN_CODE);
+                setupLanguage(RUSSIAN_LANG, AnimatorLanguageCodes.RUSSIAN_CODE);
                 addLanguageToStore(RUSSIAN_LANG);
             }
         });
-
-        defaultLang.setOnClickListener(new View.OnClickListener() {
+        english.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                languageText.setText("Default");
-                AnimatorClient.setAnimatorLocale(MainActivity.this, ConstantValues.DEFAULT_CODE);
-                addLanguageToStore(DEFAULT_LANG);
+                setupLanguage(ENGLISH_LANG, AnimatorLanguageCodes.ENGLISH_CODE);
+                addLanguageToStore(ENGLISH_LANG);
+            }
+        });
+        phoneLocale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setupLanguage("Default", AnimatorLanguageCodes.DEFAULT_CODE);
+                addLanguageToStore("");
+                AnimatorClient.registerForUserEvents(MainActivity.this, null);
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                /**
-                 * Entry point to open the camera
-                 * @param context pass the current context
-                 * @param callback receive any success / error cases here
-                 */
                 AnimatorClient.openCamera(MainActivity.this, new RequestCallback() {
                     @Override
                     public void onSuccess(RequestItem requestItem) {
@@ -126,6 +109,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private void setupLanguage(String language, AnimatorLanguageCodes code) {
+        languageText.setText(language);
+        AnimatorClient.setAnimatorLanguage(MainActivity.this, code);
+    }
+
     private void addLanguageToStore(String language) {
         if(null != sSharedPreferences && null != language) {
             sSharedPreferences.edit().putString(LANGUAGE_PREFERENCES, language).apply();
@@ -139,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             /**
              * Initialising the shared preferences to the default language.
              */
-            sSharedPreferences.edit().putString(LANGUAGE_PREFERENCES, "").apply();
+            sSharedPreferences.edit().putString(LANGUAGE_PREFERENCES, "empty").apply();
         }
         checkIfLanguageIsSet();
     }
@@ -149,16 +138,23 @@ public class MainActivity extends AppCompatActivity {
             String languageSelected = sSharedPreferences.getString(LANGUAGE_PREFERENCES, "");
             switch (languageSelected){
                 case SPANISH_LANG:
-                    AnimatorClient.setAnimatorLocale(this, ConstantValues.SPANISH_CODE);
+                    AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.SPANISH_CODE);
                     languageText.setText(SPANISH_LANG);
                     break;
                 case RUSSIAN_LANG:
-                    AnimatorClient.setAnimatorLocale(this, ConstantValues.RUSSIAN_CODE);
+                    AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.RUSSIAN_CODE);
                     languageText.setText(RUSSIAN_LANG);
                     break;
+                case ENGLISH_LANG:
+                    AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.ENGLISH_CODE);
+                    languageText.setText(ENGLISH_LANG);
+                    break;
+                case "empty":
+                    languageText.setText("Default");
+                    break;
                 default:
-                    AnimatorClient.setAnimatorLocale(this, ConstantValues.DEFAULT_CODE);
-                    languageText.setText(Locale.getDefault().getDisplayLanguage());
+                    AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.DEFAULT_CODE);
+                    languageText.setText(DEFAULT_LANG);
                     break;
             }
         }

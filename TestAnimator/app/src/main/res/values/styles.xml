@@ -16,5 +16,18 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--### v0.0.7 ###adding drawables for camera######-->
+    <style name="anim_shutter_style">
+        <item name="android:src">@drawable/ic_camera_black_24dp</item>
+    </style>
+    <style name="anim_gallery_style">
+        <item name="android:src">@drawable/ic_local_library_black_24dp</item>
+    </style>
+    <style name="anim_flash_selector_style">
+        <item name="android:background">@drawable/anim_flash_selector_new</item>
+    </style>
+    <style name="anim_ads_list_icon_style">
+        <item name="android:background">@drawable/anim_ad_icons_selector_new</item>
+    </style>
 
 </resources>

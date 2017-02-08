@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.streamoid.animatorsdk.external.AnimatorClient;
 import com.streamoid.animatorsdk.external.AnimatorLanguageCodes;
-import com.streamoid.animatorsdk.external.RequestCallback;
-import com.streamoid.animatorsdk.external.RequestItem;
 import com.streamoid.animatorsdk.misc.general.Logger;
 
 
@@ -87,24 +85,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setupLanguage("Default", AnimatorLanguageCodes.DEFAULT_CODE);
                 addLanguageToStore("");
-                AnimatorClient.registerForUserEvents(MainActivity.this, null);
+               // AnimatorClient.registerForUserEvents(MainActivity.this, null);
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AnimatorClient.openCamera(MainActivity.this, new RequestCallback() {
-                    @Override
-                    public void onSuccess(RequestItem requestItem) {
-                        Logger.errorLogs(TAG, "Success");
-                    }
-
-                    @Override
-                    public void onError(RequestItem requestItem) {
-                        Logger.errorLogs(TAG, "Error: " + requestItem.getResponse().string);
-                    }
-                });
+                AnimatorClient.openCamera(MainActivity.this);
             }
         });
     }
@@ -122,12 +110,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupStore() {
-        if(null == sSharedPreferences) {
-            sSharedPreferences = MainActivity.this.
-                    getSharedPreferences(STORE_PREFERENCES, Context.MODE_PRIVATE);
-            /**
-             * Initialising the shared preferences to the default language.
-             */
+        Logger.errorLogs(TAG, "setup Store");
+
+        sSharedPreferences = MainActivity.this.
+                getSharedPreferences(STORE_PREFERENCES, Context.MODE_PRIVATE);
+        /**
+         * Initialising the shared preferences to the default language.
+         */
+        if(null != sSharedPreferences &&
+                sSharedPreferences.getString(LANGUAGE_PREFERENCES, "empty").
+                        equalsIgnoreCase("empty")) {
+            Logger.errorLogs(TAG, "setup Store - Empty preferences");
             sSharedPreferences.edit().putString(LANGUAGE_PREFERENCES, "empty").apply();
         }
         checkIfLanguageIsSet();
@@ -149,12 +142,9 @@ public class MainActivity extends AppCompatActivity {
                     AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.ENGLISH_CODE);
                     languageText.setText(ENGLISH_LANG);
                     break;
-                case "empty":
-                    languageText.setText("Default");
-                    break;
                 default:
                     AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.DEFAULT_CODE);
-                    languageText.setText(DEFAULT_LANG);
+                    languageText.setText("Default Language");
                     break;
             }
         }

@@ -33,20 +33,6 @@ public class AppConfig extends Application {
      * @param callback  access any root causes of error / error / success cases using this callback
      * @param parameters parameters to customize the app. If null, the default settings will be used.
      */
-       /* AnimatorClient.initialize(getBaseContext(),
-                CLIENT_NAME, CLIENT_TOKEN, new RequestCallback() {
-                    @Override
-                    public void onSuccess(RequestItem requestItem) {
-                        Logger.errorLogs("App Config", "Success");
-
-                    }
-
-                    @Override
-                    public void onError(RequestItem requestItem) {
-                        Logger.errorLogs("App Config", "Error: " + requestItem.getResponse().string);
-
-                    }
-                });*/
         AnimatorClient.initialize(new AnimatorClient.Configuration.Builder(getApplicationContext())
                 .setClientName(CLIENT_NAME)
                 .setClientToken(CLIENT_TOKEN)

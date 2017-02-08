@@ -44,7 +44,7 @@ to use the JCenter Repository
 ```groovy
 dependencies {
     ...
-        compile 'com.streamoid:animatorsdk:0.0.6'
+        compile 'com.streamoid:animatorsdk:0.0.8'
     ...
 }
 ```
@@ -55,7 +55,7 @@ Add following to manifest application
 ```
  <application
   ...
-  tools:replace="android:theme"
+  tools:replace="android:theme, icon"
   ...
   >
 ```
@@ -66,8 +66,11 @@ Once you have finished adding Animator framework to your project, you can test y
 
 ### Simple Intialization
 ```sh
-        AnimatorClient.initialize(getBaseContext(),
-                CLIENT_NAME, CLIENT_TOKEN, new RequestCallback() {
+     AnimatorClient.initialize(new AnimatorClient.Configuration.Builder(getApplicationContext())
+                .setClientName(CLIENT_NAME)
+                .setClientToken(CLIENT_TOKEN)
+                .setLanguage(AnimatorLanguageCodes.ENGLISH_CODE)
+                .setRequestCallback(new RequestCallback() {
                     @Override
                     public void onSuccess(RequestItem requestItem) {
                         // Success Block
@@ -77,8 +80,14 @@ Once you have finished adding Animator framework to your project, you can test y
                     public void onError(RequestItem requestItem) {
                         // Failure Block
                     }
-                });
-
+                })
+                .setUserEventCallback(new UserEventCallback() {
+                    @Override
+                    public void onEventReceived(UserEvent event) {
+                        // Use event for analytics if required
+                    }
+                })
+                .build());
 ```
 
 Launch your application and verify that the connection is successful. You are now ready to unlock the features of Animator.
@@ -88,26 +97,16 @@ Launch your application and verify that the connection is successful. You are no
 
 Below method can be called only after initialization of `AnimatorClient`
 
-```
- AnimatorClient.openCamera(MainActivity.this, new RequestCallback() {
-                    @Override
-                    public void onSuccess(RequestItem requestItem) {
-                        // Success Block
-                    }
-
-                    @Override
-                    public void onError(RequestItem requestItem) {
-                       // Failure Block
-                    }
-                });
+```sh
+    AnimatorClient.openCamera(context);
 ```
 
 ### To use your preferred language
 
 Animator Framework supports multiple languages. As of now, English, Spanish and Russian are supported. More languages will be supported in the future... It is optional to set the language. If no language is set, we use the default language used by app. After initializing an animator client in your application, you can specify the language you need to see the framework by using the following method in framework:
 
-```
- AnimatorClient.setAnimatorLocale(this, ConstantValues.SPANISH_CODE);
+```sh
+    AnimatorClient.setAnimatorLanguage(context, AnimatorLanguageCodes.ENGLISH_CODE);
 ```
 
 ConstantValues will list out the languages supported by the SDK. Your app can use one of the language codes specified in ConstantValues to indicate the language that has to be used by the SDK.
@@ -121,6 +120,83 @@ Manifest.permission.CAMERA // To use Device Camera
 Manifest.permission.INTERNET // To connect Webservice and fetch matches
 Manifest.permission.ACCESS_NETWORK_STATE // To check Network Availibility
 ```
+
+### Customize the framework
+
+To update icons in the Camera screen, use the following:
+
+`Step 1: `
+
+Add the below code to your styles and update the drawables as per your requirement. Do not modify the names in the style tag.
+
+```
+<style name="anim_shutter_style">
+    <item name="android:src">@drawable/drawable1</item>
+</style>
+<style name="anim_gallery_style">
+    <item name="android:src">@drawable/drawable2</item>
+</style>
+```
+
+`Step 2:`
+
+Create a selector drawable `flash_selector.xml` as shown below  and update only the drawables as per your requirement.
+
+```
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        app:state_auto="true"
+        android:drawable="@drawable/flash_auto" />
+    <item
+        app:state_on="true"
+        android:drawable="@drawable/flash_on" />
+    <item
+        app:state_off="true"
+        android:drawable="@drawable/flash_off" />
+</selector>
+```
+
+Add the below code to your styles. Do not modify the `name` in the style tag.
+
+```
+<style name="anim_flash_selector_style">
+    <item name="android:background">@drawable/flash_selector</item>
+</style>
+```
+    
+    
+To update icons in the Ads screen, use the follwing:
+
+`Step 1: `
+
+Create a selector drawable `ad_icons_selector.xml` as shown below and update only the drawables as per your requirement.
+
+```
+<selector xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item app:adOptionInfo="true"
+        android:drawable="@drawable/option1" />
+    <item app:adOptionPlay="true"
+        android:drawable="@drawable/option2" />
+    <item app:adOptionAudio="true"
+        android:drawable="@drawable/option3" />
+    <item app:adOptionCall="true"
+        android:drawable="@drawable/option4" />
+    <item app:adOptionGallery="true"
+        android:drawable="@drawable/option5" />
+    <item app:adOptionBuy="true"
+        android:drawable="@drawable/option6" />
+</selector>
+```
+
+Add the below code to your styles. Do not modify the `name` in the style tag.
+
+```
+<style name="anim_ads_list_icon_style">
+    <item name="android:background">@drawable/ad_icons_selector</item>
+</style>
+```
+    
 ### Contact
 
 You can reach the Streamoid team at any time by emailing streamoid.support@streamoid.com.

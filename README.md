@@ -1,6 +1,6 @@
 # Animator Android
 
-[![N|Solid](http://www.streamoid.com/images/logo-white.png)](http://www.streamoid.com/)
+[![N|Solid](http://www.streamoid.com/images/logo.png)](http://www.streamoid.com/)
 
 This repository contains binary distributions of Animator-android framework.
 
@@ -9,7 +9,7 @@ If you have any questions, comments, or issues related to Animator, Please conta
 
 ### Animator
 
-**Animator-android** framework provided by Streamoid Technologies, acts as a bridge between offline advertisements and purchasing those products online.
+**Animator-android** framework (Api level 20 and above) provided by Streamoid Technologies, acts as a bridge between offline advertisements and purchasing those products online.
 
 **TestAnimator** is an example application which uses Animator-android framework.
 
@@ -55,7 +55,7 @@ Add following to manifest application
 ```
  <application
   ...
-  tools:replace="android:theme, icon"
+  tools:replace="android:theme, icon, label"
   ...
   >
 ```

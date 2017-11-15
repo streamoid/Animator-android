@@ -9,7 +9,7 @@ If you have any questions, comments, or issues related to Animator, Please conta
 
 ### Animator
 
-**Animator-android** framework (Api level 20 and above) provided by Streamoid Technologies, acts as a bridge between offline advertisements and purchasing those products online.
+**Animator-android** framework (Api level 21 and above) provided by Streamoid Technologies, acts as a bridge between offline advertisements and purchasing those products online.
 
 **TestAnimator** is an example application which uses Animator-android framework.
 
@@ -44,7 +44,7 @@ to use the JCenter Repository
 ```groovy
 dependencies {
     ...
-        compile 'com.streamoid:animatorsdk:1.0.1'
+        compile 'com.streamoid:animatorsdk:1.1.0'
     ...
 }
 ```
@@ -87,6 +87,7 @@ Once you have finished adding Animator framework to your project, you can test y
                         // Use event for analytics if required
                     }
                 })
+                .setEnbaleDirectAction(true) // Set to false if Direct Action feature has to be disabled.
                 .build());
 ```
 

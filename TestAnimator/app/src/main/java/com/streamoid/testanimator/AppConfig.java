@@ -21,7 +21,6 @@ public class AppConfig extends Application {
      */
     private String CLIENT_TOKEN = "";
     private String CLIENT_NAME = "";
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -55,6 +54,7 @@ public class AppConfig extends Application {
                         Logger.errorLogs("App Config", event.toString());
                     }
                 })
+                .setEnbaleDirectAction(true) // set to false if Direct Action feature has to be disabled.
                 .build());
     }
 }

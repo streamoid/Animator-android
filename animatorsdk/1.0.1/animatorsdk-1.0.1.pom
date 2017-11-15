@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.streamoid</groupId>
   <artifactId>animatorsdk</artifactId>
-  <version>0.0.8</version>
+  <version>1.0.1</version>
   <packaging>aar</packaging>
   <dependencies>
     <dependency>

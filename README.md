@@ -124,33 +124,95 @@ Manifest.permission.ACCESS_NETWORK_STATE // To check Network Availibility
 
 ### Customize the framework
 
-To update icons in the Ads screen, create a selector drawable `ad_icons_selector.xml` as shown below and update only the drawables as per your requirement.
+To Update/modify icons and colors please create animator_styles.xml in your Application style folder and override styles in the following pattern which is self explanatory:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    *****************************************************
+    CAMERA SCREEN
+    *****************************************************
+    -->
+
+    <!--SHUTTER/CAPTURE ICON-->
+    <style name="anim_shutter_style">
+        <item name="android:src">@drawable/ic_shutter</item>
+    </style>
+    <!--CLOSE(TOP LEFT) ICON-->
+    <style name="anim_close_style">
+        <item name="android:src">@drawable/close_navigator_w</item>
+    </style>
+    <!--WHY(TOP RIGHT) ICON-->
+    <style name="anim_why_style">
+        <item name="android:src">@drawable/ic_why</item>
+    </style>
+    <!--RECENT(BOTTOM LEFT) ICON-->
+    <style name="anim_recent_style">
+        <item name="android:src">@drawable/ic_recent</item>
+    </style>
+
+    <!--SELECTOR TEMPLATE FOR FLASH(BOTTOM RIGHT) ICON -->
+    <!--
+    <selector xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+            app:state_auto="true"
+            android:drawable="@drawable/camera_flash_auto" />
+        <item
+            app:state_on="true"
+            android:drawable="@drawable/camera_flash_on" />
+        <item
+            app:state_off="true"
+            android:drawable="@drawable/camera_flash_off" />
+    </selector>
+    -->
+
+    <style name="anim_flash_selector_style">
+        <item name="android:src">@drawable/anim_flash_selector</item>
+    </style>
+
+    <!--
+    *****************************************************
+    AD SCREEN
+    *****************************************************
+    -->
+
+    <!--SELECTOR TEMPLATE FOR AD ICONS(ON HOTSPOT POPUP) ICON -->
+    <!--<selector xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+        <item app:adOptionInfo="true"
+            android:drawable="@drawable/anim_ad_info" />
+        <item app:adOptionPlay="true"
+            android:drawable="@drawable/anim_ad_video" />
+        <item app:adOptionAudio="true"
+            android:drawable="@drawable/anim_ad_audio" />
+        <item app:adOptionCall="true"
+            android:drawable="@drawable/anim_ad_call" />
+        <item app:adOptionGallery="true"
+            android:drawable="@drawable/anim_ad_gallery" />
+        <item app:adOptionBuy="true"
+            android:drawable="@drawable/anim_ad_buy" />
+    </selector>-->
+    <style name="anim_ads_list_icon_style">
+        <item name="android:background">@drawable/anim_ad_icons_selector</item>
+    </style>
+
+
+
+    <!--HOTSPOT OUTER CIRCLE ICON-->
+    <style name="anim_hotspot_outer_circle_style">
+        <item name="android:src">@drawable/splash_fourth</item>
+    </style>
+    <!--HOTSPOT INNER CIRCLE ICON-->
+    <style name="anim_hotspot_inner_circle_style">
+        <item name="android:src">@drawable/splash_second</item>
+    </style>
+</resources>
 
 ```
-<selector xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
-    <item app:adOptionInfo="true"
-        android:drawable="@drawable/option1" />
-    <item app:adOptionPlay="true"
-        android:drawable="@drawable/option2" />
-    <item app:adOptionAudio="true"
-        android:drawable="@drawable/option3" />
-    <item app:adOptionCall="true"
-        android:drawable="@drawable/option4" />
-    <item app:adOptionGallery="true"
-        android:drawable="@drawable/option5" />
-    <item app:adOptionBuy="true"
-        android:drawable="@drawable/option6" />
-</selector>
-```
+Note: It is not mandatory to update all styles 
 
-Add the below code to your styles. Do not modify the `name` in the style tag.
 
-```
-<style name="anim_ads_list_icon_style">
-    <item name="android:background">@drawable/ad_icons_selector</item>
-</style>
-```
-    
 ### Contact
 
 You can reach the Streamoid team at any time by emailing streamoid.support@streamoid.com.

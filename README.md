@@ -126,6 +126,7 @@ Manifest.permission.ACCESS_NETWORK_STATE // To check Network Availibility
 
 To Update/modify icons and colors please create animator_styles.xml in your Application style folder and override styles in the following pattern which is self explanatory:
 
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -135,6 +136,8 @@ To Update/modify icons and colors please create animator_styles.xml in your Appl
     *****************************************************
     -->
 
+    <!--BOTTOM BAR COLOR-->
+    <color name="camera_screen_lower_bar_color">#888888</color>  
     <!--SHUTTER/CAPTURE ICON-->
     <style name="anim_shutter_style">
         <item name="android:src">@drawable/ic_shutter</item>
@@ -147,12 +150,12 @@ To Update/modify icons and colors please create animator_styles.xml in your Appl
     <style name="anim_why_style">
         <item name="android:src">@drawable/ic_why</item>
     </style>
-    <!--RECENT(BOTTOM LEFT) ICON-->
+    <!--BOOKMARK(BOTTOM LEFT) ICON-->
     <style name="anim_recent_style">
         <item name="android:src">@drawable/ic_recent</item>
     </style>
 
-    <!--SELECTOR TEMPLATE FOR FLASH(BOTTOM RIGHT) ICON -->
+    <!--SELECTOR TEMPLATE FOR FLASH(BOTTOM RIGHT) fa -->
     <!--
     <selector xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -209,11 +212,65 @@ To Update/modify icons and colors please create animator_styles.xml in your Appl
     </style>
 </resources>
 
+ 
 ```
 Note: It is not mandatory to update all styles 
 
 
+### Following Drawables can be customized 
+```
+Replace Images with exact same name in your Applciation's Drawables/Mipmap resources folders
+```
+##### NAVIGATION BACK ARROW ICON 
+ic_arrow_back_w
+##### NAVIGATION UP ARROW ICON 
+ic_arrow_upward_w_24dp
+##### INFO ICON ON TOP RIGHT
+ic_why
+
+
+
+
+### Supported audio/video content
+
+Video and audio content in the app is served using web URLs. The supported formats for audio and video are listed below.  
+##### Supported audio formats 
+1) .mp3
+##### Supported video formats
+1) .mp4
+2) YouTube videos of the format https://www.youtube.com/watch?v=(VIDEOID)
+
+
+## FAQ's
+
+#### what if there are dependencies conflict?
+if any library in conflict exclude them manually as below
+```
+dependencies {
+   implementation fileTree(dir: 'libs', include: ['*.jar'])
+   implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
+   implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+   implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+   testImplementation 'junit:junit:4.12'
+   compile 'com.google.code.gson:gson:2.8.0'
+   androidTestImplementation 'com.android.support.test:runner:1.0.2'
+   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+   compile ('com.streamoid:animatorsdk:1.1.4'){
+       exclude group:'com.android.support',module: 'appcompat-v7'
+       exclude group:'com.android.support',module: 'constraint'
+       exclude group:'com.android.support',module: 'design'
+       //exclude group:'com.android.support',module: 'recyclerview'
+       //exclude group:'com.android.support',module: 'cardview-v7'
+       //exclude group:'io.reactivex',module: 'rxjava'
+       //exclude group:'io.reactivex',module: 'rxandroid'
+       //exclude group:'com.google.code',module: 'gson'
+       //exclude group:'com.squareup.okhttp3',module: 'okhttp'
+       //exclude 'com.squareup.picasso',module:'picasso'
+   }
+   
+ ```
 ### Contact
 
 You can reach the Streamoid team at any time by emailing streamoid.support@streamoid.com.
+
 

@@ -87,6 +87,7 @@ Once you have finished adding Animator framework to your project, you can test y
                         // Use event for analytics if required
                     }
                 })
+                .setInSDKBrowserDisabled(false)
                 .setEnbaleDirectAction(true) // Set to false if Direct Action feature has to be disabled.
                 .build());
 ```

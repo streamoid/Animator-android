@@ -51,14 +51,13 @@ public class AppConfig extends Application {
                .setUserEventCallback(new UserEventCallback() {
                     @Override
                     public void onEventReceived(UserEvent event) {
-                        Logger.errorLogs(TAG, event.toString());
                         Log.v("callbackanimator",event.getEventType());
                         Log.v("callbackanimator",event.getEventValue());
 
 
                     }
                 })
-                .setInSDKBrowserDisabled(false)         
+                .setInSDKBrowserDisabled(true)
                 .setEnbaleDirectAction(true) // set to false if Direct Action feature has to be disabled.
                 .build());
     }

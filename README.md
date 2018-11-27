@@ -84,10 +84,12 @@ Once you have finished adding Animator framework to your project, you can test y
                 .setUserEventCallback(new UserEventCallback() {
                     @Override
                     public void onEventReceived(UserEvent event) {
-                        // Use event for analytics if required
+                        // Application callbacks 
+                        // Type: event.getEventType()
+                        // Value: event.getEventValue()
                     }
                 })
-                .setInSDKBrowserDisabled(false)
+                .setInSDKBrowserDisabled(false) // Set to true if In SDK Browser Feature to be disabled.
                 .setEnbaleDirectAction(true) // Set to false if Direct Action feature has to be disabled.
                 .build());
 ```

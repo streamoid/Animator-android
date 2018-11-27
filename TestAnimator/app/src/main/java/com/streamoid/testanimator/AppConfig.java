@@ -48,12 +48,17 @@ public class AppConfig extends Application {
                         Logger.errorLogs("App Config", "Error: " + requestItem.getResponse().string);
                     }
                 })
-                .setUserEventCallback(new UserEventCallback() {
+               .setUserEventCallback(new UserEventCallback() {
                     @Override
                     public void onEventReceived(UserEvent event) {
-                        Logger.errorLogs("App Config", event.toString());
+                        Logger.errorLogs(TAG, event.toString());
+                        Log.v("callbackanimator",event.getEventType());
+                        Log.v("callbackanimator",event.getEventValue());
+
+
                     }
                 })
+                .setInSDKBrowserDisabled(false)         
                 .setEnbaleDirectAction(true) // set to false if Direct Action feature has to be disabled.
                 .build());
     }

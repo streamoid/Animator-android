@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         russian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setupLanguage(RUSSIAN_LANG, AnimatorLanguageCodes.RUSSIAN_CODE);
-                addLanguageToStore(RUSSIAN_LANG);
+//                setupLanguage(RUSSIAN_LANG, AnimatorLanguageCodes.RUSSIAN_CODE);
+//                addLanguageToStore(RUSSIAN_LANG);
             }
         });
         english.setOnClickListener(new View.OnClickListener() {
@@ -134,10 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.SPANISH_CODE);
                     languageText.setText(SPANISH_LANG);
                     break;
-                case RUSSIAN_LANG:
-                    AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.RUSSIAN_CODE);
-                    languageText.setText(RUSSIAN_LANG);
-                    break;
+
                 case ENGLISH_LANG:
                     AnimatorClient.setAnimatorLanguage(this, AnimatorLanguageCodes.ENGLISH_CODE);
                     languageText.setText(ENGLISH_LANG);

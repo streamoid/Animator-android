@@ -44,7 +44,7 @@ to use the JCenter Repository
 ```groovy
 dependencies {
     ...
-        compile 'com.streamoid:animatorsdk:1.1.9'
+        compile 'com.streamoid:animatorsdk:1.2.0'
     ...
 }
 ```
